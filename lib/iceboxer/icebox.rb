@@ -11,10 +11,10 @@ module Iceboxer
     def perform
       closers.each do |closer|
         issues = Octokit.search_issues(closer[:search])
-        puts "Found #{issues.items.count} issues to close:"
+        puts "Found #{issues.items.count} issues to close in #{@repo} ..."
         issues.items.each do |issue|
           unless already_iceboxed?(issue.number)
-            puts "Closing #{issue.number}: #{issue.title}"
+            puts "Closing #{@repo}/issues/#{issue.number}: #{issue.title}"
             icebox(issue.number, closer)
           end
         end
@@ -44,7 +44,7 @@ module Iceboxer
       Octokit.add_comment(@repo, issue, message(reason))
       Octokit.close_issue(@repo, issue)
 
-      puts "Iceboxed #{issue}!"
+      puts "Iceboxed #{@repo}/issues/#{issue}!"
     end
 
     def message(reason)
