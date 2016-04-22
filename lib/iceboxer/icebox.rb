@@ -24,12 +24,8 @@ module Iceboxer
     def closers
       [
         {
-          :search => "repo:#{@repo} is:open created:<#{12.months.ago.to_date.to_s} updated:<#{2.months.ago.to_date.to_s}",
-          :message => "This is older than a year and has not been touched in 2 months."
-        },
-        {
-          :search => "repo:#{@repo} is:open updated:<#{6.months.ago.to_date.to_s}",
-          :message => "This has not been touched in 6 months."
+          :search => "repo:#{@repo} is:open",
+          :message => "I am closing this as it is stale."
         }
       ]
     end
@@ -53,14 +49,11 @@ module Iceboxer
 
       #{reason[:message]}
 
-      I am closing this as it is stale.
-
       I have applied the tag 'Icebox' so you can still see it by querying closed issues.
 
-      Developers: Feel free to reopen if you and your team lead agree it is high priority and will be addressed in the next month.
+      Feel free to reopen if it is high priority and should be addressed in the next month.
 
       MSG
     end
   end
 end
-
